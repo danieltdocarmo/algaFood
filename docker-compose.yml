@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+  database_algafood:
+    image: postgres
+    container_name: database_algafood
+    restart: always
+    ports:
+      - "5434:5432"
+    environment:
+      - POSTGRES_USER=algafood
+      - POSTGRES_PASSWORD=algafood
+      - POSTGRES_BD=algafood
+      - POSTGRES_DB=algafood
+    volumes:
+      - pgdata:/data/postgres
+
+volumes:
+  pgdata:
+    driver: local
