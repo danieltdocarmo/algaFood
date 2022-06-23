@@ -1,15 +1,18 @@
 package com.algaworks.api.algafood.domain.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.UUID;
 
 @Table
 @Entity
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Restaurant {
+    @EqualsAndHashCode.Include
     @Id
     @Column(name = "id", nullable = false)
     private UUID id;
@@ -20,27 +23,6 @@ public class Restaurant {
     @Column(name = "delivery_tax")
     private BigDecimal deliveryTax;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public BigDecimal getDeliveryTax() {
-        return deliveryTax;
-    }
-
-    public void setDeliveryTax(BigDecimal deliveryTax) {
-        this.deliveryTax = deliveryTax;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
+    @ManyToOne
+    private Kitchen kitchen;
 }

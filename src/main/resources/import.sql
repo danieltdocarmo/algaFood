@@ -1,0 +1,1 @@
+insert into kitchen (id, name) values ('1ad932c9-6552-48b1-a845-c30f99a923d0', 'Brasileira');
