@@ -20,7 +20,7 @@ public class KitchenRepositoryImpl implements KitchenRepository {
 
     @Override
     public List<Kitchen> listAll() {
-        return entityManager.createQuery("from kitchen", Kitchen.class)
+        return entityManager.createQuery("from Kitchen", Kitchen.class)
                 .getResultList();
     }
 

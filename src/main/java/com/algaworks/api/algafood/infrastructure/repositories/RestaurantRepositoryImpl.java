@@ -3,12 +3,13 @@ package com.algaworks.api.algafood.infrastructure.repositories;
 import com.algaworks.api.algafood.domain.model.Restaurant;
 import com.algaworks.api.algafood.domain.repositories.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.UUID;
-
+@Repository
 @RequiredArgsConstructor
 public class RestaurantRepositoryImpl implements RestaurantRepository {
 
@@ -17,7 +18,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
 
     @Override
     public List<Restaurant> listAll() {
-        return entityManager.createQuery("from restaurant").getResultList();
+        return entityManager.createQuery("from Restaurant").getResultList();
     }
 
     @Override
