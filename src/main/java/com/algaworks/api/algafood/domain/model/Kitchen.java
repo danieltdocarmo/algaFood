@@ -24,19 +24,9 @@ public class Kitchen {
     @Column
     private String name;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
+    public Kitchen(){
+        if(this.id == null){
+            this.id = UUID.randomUUID();
+        }
     }
 }
