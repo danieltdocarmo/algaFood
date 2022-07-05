@@ -29,4 +29,8 @@ public class Kitchen {
             this.id = UUID.randomUUID();
         }
     }
+
+    public Kitchen(String name){
+        this.name = name;
+    }
 }

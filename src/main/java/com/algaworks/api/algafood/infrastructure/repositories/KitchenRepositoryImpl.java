@@ -32,7 +32,6 @@ public class KitchenRepositoryImpl implements KitchenRepository {
     @Override
     public Kitchen findById(UUID id){
         return entityManager.find(Kitchen.class, id);
-
     }
 
     @Override
