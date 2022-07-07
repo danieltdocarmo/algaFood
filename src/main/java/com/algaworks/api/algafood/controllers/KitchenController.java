@@ -1,9 +1,13 @@
 package com.algaworks.api.algafood.controllers;
 
 import com.algaworks.api.algafood.domain.model.Kitchen;
+import com.algaworks.api.algafood.domain.service.CreateKitchenService;
+import com.algaworks.api.algafood.domain.service.DeleteKitchenService;
+import com.algaworks.api.algafood.domain.service.UpdateKitchenService;
 import com.algaworks.api.algafood.infrastructure.repositories.KitchenRepositoryImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +22,13 @@ import java.util.UUID;
 public class KitchenController {
 
     @Autowired
-    KitchenRepositoryImpl kitchenRepository;
+    CreateKitchenService createKitchenService;
+
+    @Autowired
+    DeleteKitchenService deleteKitchenService;
+
+    @Autowired
+    UpdateKitchenService updateKitchenService;
 
     @GetMapping
     public List<Kitchen> listAll() {
@@ -40,9 +50,10 @@ public class KitchenController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Kitchen> create(@RequestBody Kitchen kitchen) {
-        kitchenRepository.save(kitchen);
-        if (kitchen != null) {
-            return ResponseEntity.ok(kitchen);
+        final var createdKitchen = createKitchenService.execute(kitchen);
+
+        if (createdKitchen != null) {
+            return ResponseEntity.ok(createdKitchen);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -65,16 +76,14 @@ public class KitchenController {
     @DeleteMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity remove(@PathVariable UUID id) {
-        final var kitchen = kitchenRepository.findById(id);
-        if (kitchen == null) {
-            return ResponseEntity.notFound().build();
-        }
-        try {
-            kitchenRepository.remove(id);
+        try{
+            deleteKitchenService.execute(id);
             return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        } catch (EmptyResultDataAccessException e){
+            return ResponseEntity.notFound().build();
         }
 
     }
+
+
 }
