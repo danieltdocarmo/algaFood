@@ -2,7 +2,6 @@ package com.algaworks.api.algafood.domain.service;
 
 import com.algaworks.api.algafood.domain.model.Kitchen;
 import com.algaworks.api.algafood.domain.repositories.KitchenRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -10,19 +9,18 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
-public class UpdateKitchenService {
+public class FindKitchenService {
 
     @Autowired
     KitchenRepository kitchenRepository;
-    public Kitchen execute(UUID id, String name){
-        final var findedKitchen = kitchenRepository.findById(id);
 
-        if (findedKitchen == null) {
+    public Kitchen execute(UUID id){
+        final var kitchen = kitchenRepository.findById(id);
+
+        if(kitchen == null){
             throw new EmptyResultDataAccessException(1);
+        }else{
+            return kitchen;
         }
-
-        BeanUtils.copyProperties(new Kitchen(name), findedKitchen, "id");
-
-        return kitchenRepository.save(findedKitchen);
     }
 }

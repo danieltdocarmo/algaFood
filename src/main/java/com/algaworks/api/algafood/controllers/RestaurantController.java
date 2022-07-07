@@ -1,12 +1,13 @@
 package com.algaworks.api.algafood.controllers;
 
 import com.algaworks.api.algafood.domain.model.Restaurant;
-import com.algaworks.api.algafood.infrastructure.repositories.RestaurantRepositoryImpl;
+import com.algaworks.api.algafood.domain.service.CreateRestaurantService;
+import com.algaworks.api.algafood.domain.service.ListRestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,11 +17,23 @@ import java.util.List;
 public class RestaurantController {
 
     @Autowired
-    RestaurantRepositoryImpl restaurantRepository;
+    ListRestaurantService listRestaurantService;
+
+    @Autowired
+    CreateRestaurantService createRestaurantService;
 
     @GetMapping
-    public List<Restaurant> listAll(){
-        return restaurantRepository.listAll();
+    public ResponseEntity<List<Restaurant>> listAll() {
+        return ResponseEntity.ok(listRestaurantService.execute());
+    }
+
+    @PostMapping("{/id}")
+    public ResponseEntity<?> create(@RequestBody Restaurant restaurant) {
+        try {
+            return ResponseEntity.ok(createRestaurantService.execute(restaurant));
+        } catch (EmptyResultDataAccessException e) {
+            return ResponseEntity.status(400).body("Kitchen cannot be found");
+        }
     }
 
 }
