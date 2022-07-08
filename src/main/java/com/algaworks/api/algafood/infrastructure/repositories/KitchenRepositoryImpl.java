@@ -5,6 +5,7 @@ import com.algaworks.api.algafood.domain.repositories.KitchenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,6 +27,7 @@ public class KitchenRepositoryImpl implements KitchenRepository {
     }
 
     @Override
+    @Transactional
     public Kitchen save(Kitchen kitchen) {
         return entityManager.merge(kitchen);
     }

@@ -4,6 +4,7 @@ import com.algaworks.api.algafood.domain.model.Restaurant;
 import com.algaworks.api.algafood.domain.repositories.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,6 +23,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
     }
 
     @Override
+    @Transactional
     public Restaurant save(Restaurant restaurant) {
         return entityManager.merge(restaurant);
     }
