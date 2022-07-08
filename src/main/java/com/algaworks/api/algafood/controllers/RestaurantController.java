@@ -1,10 +1,10 @@
 package com.algaworks.api.algafood.controllers;
 
-import com.algaworks.api.algafood.domain.model.DTORestaurant;
+import com.algaworks.api.algafood.domain.dtos.DTORestaurant;
 import com.algaworks.api.algafood.domain.model.Restaurant;
-import com.algaworks.api.algafood.domain.service.CreateRestaurantService;
-import com.algaworks.api.algafood.domain.service.ListRestaurantService;
-import com.algaworks.api.algafood.domain.service.UpdateRestauranteService;
+import com.algaworks.api.algafood.domain.service.restaurant.CreateRestaurantService;
+import com.algaworks.api.algafood.domain.service.restaurant.ListRestaurantService;
+import com.algaworks.api.algafood.domain.service.restaurant.UpdateRestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +38,7 @@ public class RestaurantController {
         try {
             return ResponseEntity.ok(createRestaurantService.execute(restaurant));
         } catch (EmptyResultDataAccessException e) {
-            return ResponseEntity.status(400).body("Kitchen cannot be found");
+            return ResponseEntity.badRequest().body("Kitchen cannot be found");
         }
     }
     

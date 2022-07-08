@@ -1,6 +1,7 @@
-package com.algaworks.api.algafood.domain.model;
+package com.algaworks.api.algafood.domain.dtos;
 
 
+import com.algaworks.api.algafood.domain.model.Kitchen;
 import lombok.Data;
 
 import java.math.BigDecimal;

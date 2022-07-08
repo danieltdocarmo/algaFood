@@ -1,4 +1,4 @@
-package com.algaworks.api.algafood.domain.service;
+package com.algaworks.api.algafood.domain.service.kitchen;
 
 import com.algaworks.api.algafood.domain.model.Kitchen;
 import com.algaworks.api.algafood.domain.repositories.KitchenRepository;

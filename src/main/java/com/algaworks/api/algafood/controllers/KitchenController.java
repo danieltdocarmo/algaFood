@@ -1,9 +1,7 @@
 package com.algaworks.api.algafood.controllers;
 
 import com.algaworks.api.algafood.domain.model.Kitchen;
-import com.algaworks.api.algafood.domain.service.*;
-import com.algaworks.api.algafood.infrastructure.repositories.KitchenRepositoryImpl;
-import org.springframework.beans.BeanUtils;
+import com.algaworks.api.algafood.domain.service.kitchen.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -86,6 +84,5 @@ public class KitchenController {
         }
 
     }
-
 
 }

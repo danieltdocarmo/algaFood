@@ -1,0 +1,17 @@
+package com.algaworks.api.algafood.domain.service.cities;
+
+import com.algaworks.api.algafood.domain.model.City;
+import com.algaworks.api.algafood.domain.repositories.CityRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class CreateCityService {
+
+    @Autowired
+    CityRepository cityRepository;
+
+    public City execute(City city) {
+        return cityRepository.save(city);
+    }
+}
