@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class CityRepositoryImpl implements CityRepository {
@@ -19,4 +21,20 @@ public class CityRepositoryImpl implements CityRepository {
     public City save(City city) {
         return entityManager.merge(city);
     }
+
+    @Override
+    public List list() {
+        return entityManager.createQuery("select from City").getResultList();
+    }
+
+    @Override
+    public City findById(UUID id){
+        return entityManager.find(City.class, id);
+    }
+    @Override
+    public void remove(UUID id) {
+        entityManager.remove(this.findById(id));
+    }
+
+
 }

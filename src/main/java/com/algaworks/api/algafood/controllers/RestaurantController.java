@@ -3,6 +3,7 @@ package com.algaworks.api.algafood.controllers;
 import com.algaworks.api.algafood.domain.dtos.DTORestaurant;
 import com.algaworks.api.algafood.domain.model.Restaurant;
 import com.algaworks.api.algafood.domain.service.restaurant.CreateRestaurantService;
+import com.algaworks.api.algafood.domain.service.restaurant.FieldUpdateRestaurantService;
 import com.algaworks.api.algafood.domain.service.restaurant.ListRestaurantService;
 import com.algaworks.api.algafood.domain.service.restaurant.UpdateRestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Controller
@@ -27,6 +29,9 @@ public class RestaurantController {
 
     @Autowired
     UpdateRestauranteService updateRestauranteService;
+
+    @Autowired
+    FieldUpdateRestaurantService fieldUpdateRestaurantService;
 
     @GetMapping
     public ResponseEntity<List<Restaurant>> listAll() {
@@ -49,7 +54,15 @@ public class RestaurantController {
         } catch (EmptyResultDataAccessException e) {
             return ResponseEntity.status(400).body("Restaurant or Kitchen cannot be found");
         }
-
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<Restaurant> update(@PathVariable UUID id,@RequestBody Map<String, Object> restaurantFields){
+        try {
+            final var restaurant = fieldUpdateRestaurantService.execute(id, restaurantFields);
+            return ResponseEntity.ok(restaurant);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }
