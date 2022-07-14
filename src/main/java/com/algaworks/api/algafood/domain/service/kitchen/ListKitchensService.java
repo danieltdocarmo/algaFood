@@ -14,6 +14,6 @@ public class ListKitchensService {
     KitchenRepository kitchenRepository;
 
     public List<Kitchen> execute(){
-        return kitchenRepository.listAll();
+        return kitchenRepository.findAll();
     }
 }

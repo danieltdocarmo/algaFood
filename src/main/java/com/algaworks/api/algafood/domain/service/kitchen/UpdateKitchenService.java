@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+
 import java.util.UUID;
 
 @Service
@@ -14,15 +15,14 @@ public class UpdateKitchenService {
 
     @Autowired
     KitchenRepository kitchenRepository;
+
     public Kitchen execute(UUID id, String name){
-        final var findedKitchen = kitchenRepository.findById(id);
-
-        if (findedKitchen == null) {
+        final var foundKitchen = kitchenRepository.findById(id).orElseThrow(() -> {
             throw new EmptyResultDataAccessException(1);
-        }
+        });
 
-        BeanUtils.copyProperties(new Kitchen(name), findedKitchen, "id");
+        BeanUtils.copyProperties(new Kitchen(name), foundKitchen, "id");
 
-        return kitchenRepository.save(findedKitchen);
+        return kitchenRepository.save(foundKitchen);
     }
 }

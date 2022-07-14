@@ -11,7 +11,6 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.UUID;
 @Repository
-@RequiredArgsConstructor
 public class RestaurantRepositoryImpl implements RestaurantRepository {
 
     @PersistenceContext

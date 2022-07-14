@@ -39,15 +39,13 @@ public class KitchenController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Kitchen> find(@PathVariable UUID id) {
+    public ResponseEntity<Kitchen> findById(@PathVariable UUID id) {
+        var foundKitchen = findKitchenService.execute(id);
 
-        try {
-            var findedKitchen = findKitchenService.execute(id);
-            return ResponseEntity.ok(findedKitchen);
-        }catch (EmptyResultDataAccessException e){
-            return ResponseEntity.notFound().build();
+        if(foundKitchen.isPresent()){
+            return ResponseEntity.ok(foundKitchen.get());
         }
-
+        return  ResponseEntity.notFound().build();
     }
 
     @PostMapping
@@ -75,14 +73,12 @@ public class KitchenController {
 
     @DeleteMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity remove(@PathVariable UUID id) {
+    public ResponseEntity<?> remove(@PathVariable UUID id) {
         try {
             deleteKitchenService.execute(id);
             return ResponseEntity.noContent().build();
         } catch (EmptyResultDataAccessException e) {
             return ResponseEntity.notFound().build();
         }
-
     }
-
 }
