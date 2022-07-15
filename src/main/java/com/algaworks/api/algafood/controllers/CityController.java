@@ -1,13 +1,12 @@
 package com.algaworks.api.algafood.controllers;
 
 import com.algaworks.api.algafood.domain.model.City;
-import com.algaworks.api.algafood.domain.repositories.CityRepository;
-import com.algaworks.api.algafood.domain.repositories.StateRepository;
 import com.algaworks.api.algafood.domain.service.cities.CreateCityService;
 import com.algaworks.api.algafood.domain.service.cities.DeleteCityService;
 import com.algaworks.api.algafood.domain.service.cities.ListCityService;
 import com.algaworks.api.algafood.domain.service.cities.UpdateCityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,8 +47,15 @@ public class CityController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<City> update(@RequestBody DTOCity city){
-        updateCityService.execute();
+    public ResponseEntity<City> update(@PathVariable UUID id, @RequestBody String name){
+        try {
+            final var state = updateCityService.execute(id, name);
+            return ResponseEntity.ok(state);
+        } catch (EmptyResultDataAccessException e){
+            return ResponseEntity.notFound().build();
+        }
+
+
     }
 
     @DeleteMapping("/{id}")

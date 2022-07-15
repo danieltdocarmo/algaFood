@@ -1,8 +1,10 @@
 package com.algaworks.api.algafood.domain.repositories;
 
 import com.algaworks.api.algafood.domain.model.State;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface StateRepository {
+import java.util.UUID;
 
-    State save(State state);
+public interface StateRepository extends JpaRepository<State, UUID> {
+
 }
