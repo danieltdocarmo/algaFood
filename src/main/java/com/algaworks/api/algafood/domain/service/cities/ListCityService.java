@@ -14,6 +14,6 @@ public class ListCityService {
     CityRepository cityRepository;
 
     public List<City> execute(){
-        return cityRepository.list();
+        return cityRepository.findAll();
     }
 }

@@ -16,10 +16,10 @@ public class DeleteCityService {
     public void execute(UUID id){
         final var findedCity = cityRepository.findById(id);
 
-        if(findedCity == null){
+        if(findedCity.isEmpty()){
             throw new EmptyResultDataAccessException(1);
         }
 
-        cityRepository.remove(id);
+        cityRepository.delete(findedCity.get());
     }
 }

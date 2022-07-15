@@ -19,7 +19,7 @@ public class FieldUpdateRestaurantService {
 
     public Restaurant execute(UUID id, Map<String, Object> restaurant) {
         final var foundRestaurant = restaurantRepository.findById(id);
-        if (foundRestaurant == null) {
+        if (foundRestaurant.isEmpty()) {
             throw new EmptyResultDataAccessException(1);
         }
         final var convertedRestaurant = new ObjectMapper().convertValue(restaurant, Restaurant.class);
@@ -32,6 +32,6 @@ public class FieldUpdateRestaurantService {
             final var fieldValue = ReflectionUtils.getField(field, convertedRestaurant);
             ReflectionUtils.setField(field, foundRestaurant, fieldValue);
         });
-            return restaurantRepository.save(foundRestaurant);
+            return restaurantRepository.save(foundRestaurant.get());
     }
 }

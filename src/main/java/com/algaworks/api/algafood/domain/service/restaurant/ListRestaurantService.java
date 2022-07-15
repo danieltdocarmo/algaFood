@@ -14,7 +14,7 @@ public class ListRestaurantService {
     RestaurantRepository restaurantRepository;
 
     public List<Restaurant> execute(){
-        return restaurantRepository.listAll();
+        return restaurantRepository.findAll();
     }
 
 }

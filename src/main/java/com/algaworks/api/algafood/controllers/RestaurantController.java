@@ -2,10 +2,7 @@ package com.algaworks.api.algafood.controllers;
 
 import com.algaworks.api.algafood.domain.dtos.DTORestaurant;
 import com.algaworks.api.algafood.domain.model.Restaurant;
-import com.algaworks.api.algafood.domain.service.restaurant.CreateRestaurantService;
-import com.algaworks.api.algafood.domain.service.restaurant.FieldUpdateRestaurantService;
-import com.algaworks.api.algafood.domain.service.restaurant.ListRestaurantService;
-import com.algaworks.api.algafood.domain.service.restaurant.UpdateRestauranteService;
+import com.algaworks.api.algafood.domain.service.restaurant.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +29,9 @@ public class RestaurantController {
 
     @Autowired
     FieldUpdateRestaurantService fieldUpdateRestaurantService;
+
+    @Autowired
+    DeleteRestaurantService deleteRestaurantService;
 
     @GetMapping
     public ResponseEntity<List<Restaurant>> listAll() {
@@ -63,6 +63,16 @@ public class RestaurantController {
             return ResponseEntity.ok(restaurant);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id){
+        try {
+            deleteRestaurantService.execute(id);
+            return ResponseEntity.noContent().build();
+        }catch (EmptyResultDataAccessException e){
+            return ResponseEntity.notFound().build();
         }
     }
 }

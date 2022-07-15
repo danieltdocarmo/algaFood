@@ -17,10 +17,10 @@ public class FindCityService {
     public City execute(UUID id) {
         final var findedCity = cityRepository.findById(id);
 
-        if(findedCity == null){
+        if(findedCity.isEmpty()){
             throw new EmptyResultDataAccessException(1);
         }
 
-        return findedCity;
+        return findedCity.get();
     }
 }

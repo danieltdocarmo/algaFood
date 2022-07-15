@@ -10,5 +10,5 @@ import java.util.UUID;
 @Repository
 public interface KitchenRepository extends JpaRepository<Kitchen, UUID> {
 
-     //Kitchen findByName(String name);
+     List<Kitchen> findByNameContaining(String name);
 }

@@ -1,5 +1,6 @@
 package com.algaworks.api.algafood.controllers;
 
+import com.algaworks.api.algafood.domain.dtos.DTOCity;
 import com.algaworks.api.algafood.domain.model.City;
 import com.algaworks.api.algafood.domain.service.cities.CreateCityService;
 import com.algaworks.api.algafood.domain.service.cities.DeleteCityService;
@@ -47,10 +48,10 @@ public class CityController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<City> update(@PathVariable UUID id, @RequestBody String name){
+    public ResponseEntity<City> update(@PathVariable UUID id, @RequestBody DTOCity city){
         try {
-            final var state = updateCityService.execute(id, name);
-            return ResponseEntity.ok(state);
+            final var foundCity = updateCityService.execute(id, city);
+            return ResponseEntity.ok(foundCity);
         } catch (EmptyResultDataAccessException e){
             return ResponseEntity.notFound().build();
         }

@@ -21,16 +21,16 @@ public class UpdateRestauranteService {
     KitchenRepository kitchenRepository;
 
     public Restaurant execute(UUID id, DTORestaurant dtoRestaurant) {
-        final var findedRestaurant = restaurantRepository.findById(id);
+        final var foundRestaurant = restaurantRepository.findById(id);
 
-        final var findedKitchen = kitchenRepository.findById(dtoRestaurant.getKitchen().getId());
+        final var foundKitchen = kitchenRepository.findById(dtoRestaurant.getKitchen().getId());
 
-        if (findedKitchen == null || findedRestaurant == null) {
+        if (foundKitchen.isEmpty()|| foundRestaurant.isEmpty()) {
             throw new EmptyResultDataAccessException(1);
         }
 
-        BeanUtils.copyProperties(dtoRestaurant, findedRestaurant, "id");
+        BeanUtils.copyProperties(dtoRestaurant, foundRestaurant.get(), "id");
 
-        return restaurantRepository.save(findedRestaurant);
+        return restaurantRepository.save(foundRestaurant.get());
     }
 }
