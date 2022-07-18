@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import static java.util.stream.IntStream.concat;
+
 @Controller
 @RestController
 @RequestMapping("/restaurant")
@@ -33,9 +35,18 @@ public class RestaurantController {
     @Autowired
     DeleteRestaurantService deleteRestaurantService;
 
+    @Autowired
+    FindByNameRestaurantService findByNameRestaurantService;
+
     @GetMapping
     public ResponseEntity<List<Restaurant>> listAll() {
         return ResponseEntity.ok(listRestaurantService.execute());
+    }
+
+    @GetMapping("/by-name")
+    public ResponseEntity<List<Restaurant>> findByName(String name, String id){
+        final var restaurants = findByNameRestaurantService.execute(name, UUID.fromString(id));
+        return ResponseEntity.ok(restaurants);
     }
 
     @PostMapping

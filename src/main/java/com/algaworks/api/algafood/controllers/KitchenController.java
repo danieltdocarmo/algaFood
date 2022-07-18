@@ -2,7 +2,6 @@ package com.algaworks.api.algafood.controllers;
 
 import com.algaworks.api.algafood.domain.model.Kitchen;
 import com.algaworks.api.algafood.domain.service.kitchen.*;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,7 +35,7 @@ public class KitchenController {
     ListKitchensService listKitchensService;
 
     @Autowired
-    FindByNameService findByNameService;
+    FindByNameKitchenService findByNameService;
 
     @GetMapping
     public List<Kitchen> listAll() {
@@ -55,7 +53,7 @@ public class KitchenController {
     }
 
     @GetMapping({"/by-name"})
-    @RequestMapping(value = "/by-name", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    @RequestMapping(value = "/name", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Kitchen>> findByName(@RequestParam(value = "name") String name) {
         return ResponseEntity.ok(
                 findByNameService.execute(name)
