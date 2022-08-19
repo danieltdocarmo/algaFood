@@ -2,6 +2,11 @@ package com.algaworks.api.algafood.repositories;
 
 import com.algaworks.api.algafood.domain.model.Restaurant;
 import com.algaworks.api.algafood.domain.repositories.CustonsRestaurantRepository;
+import com.algaworks.api.algafood.domain.repositories.RestaurantRepository;
+import com.algaworks.api.algafood.repositories.specs.RestaurantSpecs;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -17,6 +22,9 @@ public class RestaurantRepositoryImpl implements CustonsRestaurantRepository {
 
     @PersistenceContext
     EntityManager entityManager;
+
+    @Autowired @Lazy
+    RestaurantRepository restaurantRepository;
 
     @Override
     public List<Restaurant> findByNameAndTaxs(String name, Double initialTax, Double finalTax){
@@ -41,5 +49,11 @@ public class RestaurantRepositoryImpl implements CustonsRestaurantRepository {
         final var  query = entityManager.createQuery(criteriaQuery);
 
         return query.getResultList();
+    }
+
+    @Override
+    public List<Restaurant> findWithNameAndFreeTax(String name) {
+        final var restaurants = restaurantRepository.findAll(RestaurantSpecs.withFreeTax().and(RestaurantSpecs.withNameLike(name)));
+        return  restaurants;
     }
 }

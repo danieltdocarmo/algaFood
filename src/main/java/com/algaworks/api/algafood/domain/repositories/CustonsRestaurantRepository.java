@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface CustonsRestaurantRepository {
 
-    public List<Restaurant> findByNameAndTaxs(String name, Double initialTax, Double FinalTax);
+     List<Restaurant> findByNameAndTaxs(String name, Double initialTax, Double FinalTax);
+
+     List<Restaurant> findWithNameAndFreeTax(String name);
 }
 
