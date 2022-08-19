@@ -20,6 +20,7 @@ public class TestController {
     @GetMapping
     public ResponseEntity<Restaurant> test(){
         final var restaurant = restaurantRepository.findFirst();
-            return ResponseEntity.of(restaurant);
+        
+        return ResponseEntity.of(restaurant);
     }
 }
