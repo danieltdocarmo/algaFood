@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @Table
@@ -25,4 +26,7 @@ public class Restaurant {
 
     @ManyToOne
     private Kitchen kitchen;
+
+    @ManyToMany
+    private List<PaymentForm> paymentForms;
 }
