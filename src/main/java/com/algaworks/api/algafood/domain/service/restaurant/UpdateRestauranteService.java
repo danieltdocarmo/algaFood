@@ -29,7 +29,11 @@ public class UpdateRestauranteService {
             throw new EmptyResultDataAccessException(1);
         }
 
-        BeanUtils.copyProperties(dtoRestaurant, foundRestaurant.get(), "id", "paymentForms");
+        BeanUtils.copyProperties(dtoRestaurant, foundRestaurant.get(), 
+        "id", 
+        "paymentForms", 
+        "address", 
+        "created_at");
 
         return restaurantRepository.save(foundRestaurant.get());
     }

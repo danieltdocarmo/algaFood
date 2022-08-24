@@ -4,7 +4,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,6 +18,7 @@ import java.util.UUID;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Restaurant {
+
     @EqualsAndHashCode.Include
     @Id
     @Column(name = "id", nullable = false)
@@ -24,9 +30,20 @@ public class Restaurant {
     @Column(name = "delivery_tax")
     private BigDecimal deliveryTax;
 
+    @Embedded
+    private Address address;
+    
     @ManyToOne
     private Kitchen kitchen;
 
     @ManyToMany
     private List<PaymentForm> paymentForms;
+
+    @UpdateTimestamp
+    @Column(nullable = false, columnDefinition = "timestamp")
+    private LocalDateTime updated_at;
+
+    @CreationTimestamp
+    @Column(nullable = false, columnDefinition = "timestamp")
+    private LocalDateTime created_at;
 }
