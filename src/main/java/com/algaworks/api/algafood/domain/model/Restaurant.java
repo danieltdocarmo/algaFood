@@ -39,6 +39,9 @@ public class Restaurant {
     @ManyToMany
     private List<PaymentForm> paymentForms;
 
+    @OneToMany
+    private List<Product> products;
+    
     @UpdateTimestamp
     @Column(nullable = false, columnDefinition = "timestamp")
     private LocalDateTime updated_at;

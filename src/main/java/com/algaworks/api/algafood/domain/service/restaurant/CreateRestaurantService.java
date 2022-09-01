@@ -5,7 +5,6 @@ import com.algaworks.api.algafood.domain.model.Restaurant;
 import com.algaworks.api.algafood.domain.repositories.RestaurantRepository;
 import com.algaworks.api.algafood.domain.service.kitchen.FindKitchenService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
