@@ -1,7 +1,7 @@
-CREATE TABLE user(
-    id UUID NOT NULL PRIMARY KEY,
+CREATE TABLE users (
+    id UUID PRIMARY KEY NOT NULL,
     email VARCHAR(255) NOT NULL,
-    password varchar(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL
 )

@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Table
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class User {
+public class Users {
 
     @Id
     @EqualsAndHashCode.Include
