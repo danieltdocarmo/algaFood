@@ -23,6 +23,7 @@ import java.util.UUID;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Kitchen {
+   
     @EqualsAndHashCode.Include
     @Id
     @Column(name = "id", nullable = false)
