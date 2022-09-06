@@ -15,10 +15,11 @@ public class Address {
    private String street;
    
    @Column(name = "street_number")
-   private String number;
+   private int number;
    
    private String square;
    
    @ManyToOne
    private City city; 
+
 }

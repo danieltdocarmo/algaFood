@@ -22,4 +22,6 @@ public class City {
 
     @ManyToOne
     private State state;
+
+  
 }

@@ -1,39 +1,33 @@
 package com.algaworks.api.algafood.domain.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table
-@Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Kitchen {
-    @EqualsAndHashCode.Include
+public class Order {
+
     @Id
-    @Column(name = "id", nullable = false)
+    @EqualsAndHashCode.Include
     private UUID id;
 
     @Column
-    private String name;
+    private BigDecimal subTotal;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "kitchen")
-    private List<Restaurant> restaurants;
+    @Column
+    private BigDecimal total;
 
     @UpdateTimestamp
     @Column(nullable = false, columnDefinition = "timestamp")
@@ -43,13 +37,13 @@ public class Kitchen {
     @Column(nullable = false, columnDefinition = "timestamp")
     private LocalDateTime created_at;
 
-    public Kitchen(){
-        if(this.id == null){
-            this.id = UUID.randomUUID();
-        }
-    }
+    @Column
+    private LocalDateTime canceled_at;
 
-    public Kitchen(String name){
-        this.name = name;
-    }
+    @Column
+    private LocalDateTime delivered_at;
+
+    @Column
+    private OrderStatus status;
+    
 }

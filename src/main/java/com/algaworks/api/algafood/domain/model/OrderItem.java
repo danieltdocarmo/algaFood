@@ -7,7 +7,6 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -17,31 +16,24 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Product {
-    
-    @EqualsAndHashCode.Include
+public class OrderItem{
+
     @Id
-    @Column(nullable = false)
+    @EqualsAndHashCode.Include
     private UUID id;
-
-    @Column
-    private String name;
-
-    @Column
-    private String description;
-
-    @Column
-    private BigDecimal price;
     
     @Column
-    private Boolean isActive;
+    private BigDecimal quantity;
+    
+    @Column
+    private BigDecimal total;
 
-    @ManyToOne
-    private Restaurant restaurant;
-
+    @Column
+    private String note;
+    
     @UpdateTimestamp
     @Column(nullable = false, columnDefinition = "timestamp")
     private LocalDateTime updated_at;

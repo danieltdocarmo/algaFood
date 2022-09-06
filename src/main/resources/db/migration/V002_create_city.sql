@@ -1,0 +1,5 @@
+CREATE TABLE city(
+    id UUID NOT NULL PRIMARY KEY,
+    name varchar(200),
+    state UUID NOT NULL FOREIGN KEY REFERENCES STATE(id)
+)
