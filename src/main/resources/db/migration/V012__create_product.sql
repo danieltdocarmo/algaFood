@@ -4,5 +4,6 @@ CREATE TABLE product(
     description varchar(200),
     price decimal,
     is_active boolean,
-    restaurant_id UUID FOREIGN KEY REFERENCES restaurant(id)
+    restaurant_id UUID,
+    CONSTRAINT fk_restaurant FOREIGN KEY(restaurant_id) REFERENCES restaurant(id)
 )

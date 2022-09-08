@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Table
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Order {
+public class UserOrder {
 
     @Id
     @EqualsAndHashCode.Include

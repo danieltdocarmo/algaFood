@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Table
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Group {
+public class UserGroup {
     
     @Id
     @EqualsAndHashCode.Include

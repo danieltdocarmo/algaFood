@@ -1,4 +1,4 @@
-CREATE TABLE order(
+CREATE TABLE user_order(
     id UUID NOT NULL PRIMARY KEY,
     sub_total decimal,
     total decimal,

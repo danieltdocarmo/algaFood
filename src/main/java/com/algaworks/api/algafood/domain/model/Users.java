@@ -33,7 +33,7 @@ public class Users {
     private String password;
 
     @ManyToMany
-    private List<Group> groups;
+    private List<UserGroup> groups;
 
     @CreationTimestamp
     private LocalDateTime created_at;
