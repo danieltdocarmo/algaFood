@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,6 +38,8 @@ public class KitchenController {
     @Autowired
     FindByNameKitchenService findByNameService;
 
+    String NOT_FOUND_MESSAGE = "ENTIDADE NAO ENCONTRADA";
+
     @GetMapping
     public List<Kitchen> listAll() {
         return listKitchensService.execute();
@@ -44,12 +47,11 @@ public class KitchenController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Kitchen> findById(@PathVariable UUID id) {
-        var foundKitchen = findKitchenService.execute(id);
+        var foundKitchen = findKitchenService.execute(id).orElseThrow(() -> {
+            throw new EntityNotFoundException(NOT_FOUND_MESSAGE);}
+        );
 
-        if (foundKitchen.isPresent()) {
-            return ResponseEntity.ok(foundKitchen.get());
-        }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(foundKitchen);
     }
 
     @GetMapping({"/by-name"})
