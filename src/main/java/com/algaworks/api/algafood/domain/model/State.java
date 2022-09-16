@@ -19,4 +19,10 @@ public class State {
 
     @Column
     private String name;
+
+    public State(){
+        if(this.id == null){
+            this.id = UUID.randomUUID();
+        }
+    }
 }

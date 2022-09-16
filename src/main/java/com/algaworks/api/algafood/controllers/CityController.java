@@ -49,12 +49,10 @@ public class CityController {
 
     @PutMapping("/{id}")
     public ResponseEntity<City> update(@PathVariable UUID id, @RequestBody DTOCity city){
-        try {
             final var foundCity = updateCityService.execute(id, city);
+            
             return ResponseEntity.ok(foundCity);
-        } catch (EmptyResultDataAccessException e){
-            return ResponseEntity.notFound().build();
-        }
+     
 
 
     }

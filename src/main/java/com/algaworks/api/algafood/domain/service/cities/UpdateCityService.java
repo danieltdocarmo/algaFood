@@ -1,12 +1,13 @@
 package com.algaworks.api.algafood.domain.service.cities;
 
 import com.algaworks.api.algafood.domain.dtos.DTOCity;
+import com.algaworks.api.algafood.domain.exceptions.EntityNotFoundBadRequestException;
+import com.algaworks.api.algafood.domain.exceptions.EntityNotFoundException;
 import com.algaworks.api.algafood.domain.model.City;
 import com.algaworks.api.algafood.domain.repositories.CityRepository;
 import com.algaworks.api.algafood.domain.repositories.StateRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -21,17 +22,22 @@ public class UpdateCityService {
     StateRepository stateRepository;
 
     public City execute(UUID id, DTOCity city) {
+        
         final var foundCity = cityRepository.findById(id);
-        final var foundState = cityRepository.findById(city.getState().getId());
+        final var foundState = stateRepository.findById(city.getStateId());
 
-        if(foundCity.isEmpty() || foundState.isEmpty()){
-            throw new EmptyResultDataAccessException(1);
+        if(foundCity.isEmpty()){
+            throw new EntityNotFoundException("Entidade nao foi encontrada");
+        }
+
+        if(foundState.isEmpty()){
+            throw new EntityNotFoundBadRequestException("Entidade nao foi encontrada");
         }
 
         BeanUtils.copyProperties(city, foundCity.get(), "id");
+        foundCity.get().setState(foundState.get());
 
         return cityRepository.save(foundCity.get());
-
 
     }
 }

@@ -20,8 +20,13 @@ public class City {
     @Column
     private String name;
 
-    @ManyToOne
+    @ManyToOne()
     private State state;
 
-  
+    public City(){
+        if(this.id == null){
+            this.id = UUID.randomUUID();
+        }
+    }
 }
+
