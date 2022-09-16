@@ -52,15 +52,7 @@ public class CityController {
 
     @PutMapping("/{id}")
     public ResponseEntity<City> update(@PathVariable UUID id, @RequestBody DTOCity city){
-<<<<<<< HEAD
-            final var foundCity = updateCityService.execute(id, city);
-            
-            return ResponseEntity.ok(foundCity);
-     
-
-=======
         final var foundCity = updateCityService.execute(id, city);
->>>>>>> 881f8f5a9d51cb485e9fbf63f1b85edfa29c32e0
 
         return ResponseEntity.ok(foundCity);
     }
