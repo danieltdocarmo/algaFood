@@ -1,8 +1,8 @@
 package com.algaworks.api.algafood.domain.service.cities;
 
+import com.algaworks.api.algafood.domain.exceptions.EntityCityNotFoundException;
 import com.algaworks.api.algafood.domain.repositories.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -14,12 +14,12 @@ public class DeleteCityService {
     CityRepository cityRepository;
 
     public void execute(UUID id){
-        final var findedCity = cityRepository.findById(id);
+        final var foundCity = cityRepository.findById(id);
 
-        if(findedCity.isEmpty()){
-            throw new EmptyResultDataAccessException(1);
+        if(foundCity.isEmpty()){
+            throw new EntityCityNotFoundException("Entidade cidade não foi encontrada");
         }
 
-        cityRepository.delete(findedCity.get());
+        cityRepository.delete(foundCity.get());
     }
 }
