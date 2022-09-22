@@ -1,5 +1,6 @@
 package com.algaworks.api.algafood.exceptionHandler;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import org.springframework.http.HttpHeaders;
@@ -17,31 +18,26 @@ import com.algaworks.api.algafood.domain.exceptions.EntityStateNotFoundException
 public class ApiHandlerException extends ResponseEntityExceptionHandler {
 
     @Override
-    protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, 
+    protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body,
     HttpHeaders headers, HttpStatus status, WebRequest request) {
 
-        body = HandlerException.builder()
-        .title(Objects.isNull(body) ? status.getReasonPhrase() : (String) body)
-        .status(status.value())
-        .build();
+        final var problem = HandlerException.builder()
+                .title(ex.getClass().toString())
+                .date(LocalDateTime.now())
+                .message(ex.getMessage())
+                .build();
 
-        return super.handleExceptionInternal(ex, body, headers, status, request);
+        return super.handleExceptionInternal(ex, problem, headers, status, request);
     }
 
     @ExceptionHandler(EntityCityNotFoundException.class)
-    public ResponseEntity<?> exceptionHandlerCityController(EntityCityNotFoundException ex) {
-       
-        this.handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), ex., request)
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    public ResponseEntity<?> exceptionHandlerCityController(EntityCityNotFoundException ex, WebRequest request) {
+        return this.handleExceptionInternal(ex, ExceptionTypeEnum.ENTITY_CITY_NOT_FOUND_EXCEPTION, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
     @ExceptionHandler(EntityStateNotFoundException.class)
-    public ResponseEntity<?> exceptionHandlerCityController(EntityStateNotFoundException e) {
-      
-      
-      
-        return ResponseEntity.badRequest().body(e.getMessage());
+    public ResponseEntity<?> exceptionHandlerStateController(EntityStateNotFoundException ex, WebRequest request) {
+        return this.handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
   
 }
