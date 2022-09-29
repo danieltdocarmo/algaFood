@@ -2,7 +2,6 @@ package com.algaworks.api.algafood.domain.service.cities;
 
 import com.algaworks.api.algafood.domain.dtos.DTOCity;
 import com.algaworks.api.algafood.domain.exceptions.EntityCityNotFoundException;
-import com.algaworks.api.algafood.domain.exceptions.EntityNotFoundException;
 import com.algaworks.api.algafood.domain.exceptions.EntityStateNotFoundException;
 import com.algaworks.api.algafood.domain.model.City;
 import com.algaworks.api.algafood.domain.repositories.CityRepository;

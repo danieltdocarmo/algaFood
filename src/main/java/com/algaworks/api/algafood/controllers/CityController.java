@@ -1,20 +1,15 @@
 package com.algaworks.api.algafood.controllers;
 
 import com.algaworks.api.algafood.domain.dtos.DTOCity;
-import com.algaworks.api.algafood.domain.exceptions.EntityCityNotFoundException;
-import com.algaworks.api.algafood.domain.exceptions.EntityStateNotFoundException;
 import com.algaworks.api.algafood.domain.model.City;
 import com.algaworks.api.algafood.domain.service.cities.CreateCityService;
 import com.algaworks.api.algafood.domain.service.cities.DeleteCityService;
 import com.algaworks.api.algafood.domain.service.cities.ListCityService;
 import com.algaworks.api.algafood.domain.service.cities.UpdateCityService;
-import com.algaworks.api.algafood.exceptionHandler.ApiHandlerException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 

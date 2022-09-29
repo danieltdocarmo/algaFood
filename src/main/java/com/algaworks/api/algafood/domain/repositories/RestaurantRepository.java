@@ -15,4 +15,5 @@ public interface RestaurantRepository extends CustomJpaRepository<Restaurant, UU
     @Query("from Restaurant where name = :name and kitchen.id = :id")
     public List<Restaurant> findByNameAndId(String name, String id);
 
+    public List<Restaurant> findByName(String name);
 }

@@ -4,6 +4,11 @@ import com.algaworks.api.algafood.domain.exceptions.AlreadyExistException;
 import com.algaworks.api.algafood.domain.model.Restaurant;
 import com.algaworks.api.algafood.domain.repositories.RestaurantRepository;
 import com.algaworks.api.algafood.domain.service.kitchen.FindKitchenService;
+
+import java.util.UUID;
+
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +22,20 @@ public class CreateRestaurantService {
     FindKitchenService findKitchenService;
 
     public Restaurant execute(Restaurant restaurant){
+        final var foundRestaurant = restaurantRepository.findByName(restaurant.getName());
 
-        final var foundRestaurant = findKitchenService.execute(restaurant.getKitchen().getId());
+        final var foundKitchen = findKitchenService.execute(restaurant.getKitchen().getId());
 
-        if (foundRestaurant.isPresent()) {
-            throw new AlreadyExistException("Kitchen already exist");
+        if (foundRestaurant == null) {
+            throw new AlreadyExistException("Restaurant already exist");
         }
 
+        if (foundKitchen.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
+
+        restaurant.setId(UUID.randomUUID());
+        
         return restaurantRepository.save(restaurant);
 
     }

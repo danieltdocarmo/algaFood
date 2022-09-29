@@ -1,6 +1,7 @@
 package com.algaworks.api.algafood.exceptionHandler;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -19,5 +20,13 @@ public class HandlerException {
     private String detail;
     private LocalDateTime date;
     private String message;
+    private List<Filds> fields;
+
+    @Data
+    @Builder
+    public static class Filds{
+        private String key;
+        private String value;
+    }
     
 }

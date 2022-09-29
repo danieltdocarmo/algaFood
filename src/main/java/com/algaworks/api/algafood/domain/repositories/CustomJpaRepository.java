@@ -10,4 +10,6 @@ import org.springframework.data.repository.NoRepositoryBean;
 public interface CustomJpaRepository<T, ID> extends JpaRepository<T, ID> {
     
     Optional<T> findFirst();
+
+    //Optional<T> findByName(String name);
 }

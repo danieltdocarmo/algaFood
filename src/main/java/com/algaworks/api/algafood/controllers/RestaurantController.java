@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.validation.Valid;
+
 @Controller
 @RestController
 @RequestMapping("/restaurant")
@@ -48,7 +50,7 @@ public class RestaurantController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody Restaurant restaurant) {
+    public ResponseEntity<?> create(@RequestBody @Valid Restaurant restaurant) {
         try {
             return ResponseEntity.ok(createRestaurantService.execute(restaurant));
         } catch (EmptyResultDataAccessException e) {

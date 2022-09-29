@@ -31,5 +31,17 @@ public class CustomJpaRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> i
 
         return Optional.ofNullable(entity);
     }
+
+    // @Override
+    // public Optional<T> findByName(String name) {
+    //     var jpql = new StringBuilder();
+
+    //     jpql.append("from " + getDomainClass().getName())
+    //     .append(" where name = " + name);
+
+    //     final var entity = em.createQuery(jpql.toString(), getDomainClass()).getSingleResult();
+        
+    //     return Optional.ofNullable(entity);
+    // }
     
 }

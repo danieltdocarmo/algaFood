@@ -19,10 +19,13 @@ public class FieldUpdateRestaurantService {
 
     public Restaurant execute(UUID id, Map<String, Object> restaurant) {
         final var foundRestaurant = restaurantRepository.findById(id);
+        
         if (foundRestaurant.isEmpty()) {
             throw new EmptyResultDataAccessException(1);
         }
+        
         final var convertedRestaurant = new ObjectMapper().convertValue(restaurant, Restaurant.class);
+        
         restaurant.forEach((name, value) -> {
             final var field = ReflectionUtils.findField(Restaurant.class, name);
             if(field == null){
@@ -30,7 +33,7 @@ public class FieldUpdateRestaurantService {
             }
             field.setAccessible(true);
             final var fieldValue = ReflectionUtils.getField(field, convertedRestaurant);
-            ReflectionUtils.setField(field, foundRestaurant, fieldValue);
+            ReflectionUtils.setField(field, foundRestaurant.get(), fieldValue);
         });
             return restaurantRepository.save(foundRestaurant.get());
     }

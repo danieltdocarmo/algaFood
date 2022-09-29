@@ -4,9 +4,14 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -25,12 +30,16 @@ public class Restaurant {
     private UUID id;
 
     @Column
+    @NotNull
+    @NotEmpty
+    @NotBlank
     private String name;
 
     @Column(name = "delivery_tax")
     private BigDecimal deliveryTax;
 
     @Embedded
+    @JsonIgnore
     private Address address;
     
     @ManyToOne
@@ -49,4 +58,6 @@ public class Restaurant {
     @CreationTimestamp
     @Column(nullable = false, columnDefinition = "timestamp")
     private LocalDateTime created_at;
+
+    
 }

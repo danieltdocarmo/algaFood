@@ -18,6 +18,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 @Entity
 @Table
 @Data
@@ -29,7 +33,9 @@ public class Kitchen {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @Column
+    @NotBlank
+    @NotNull
+    @NotEmpty
     private String name;
 
     @JsonIgnore

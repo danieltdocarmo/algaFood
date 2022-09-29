@@ -8,9 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -27,7 +30,6 @@ public class KitchenController {
 
     @Autowired
     UpdateKitchenService updateKitchenService;
-
 
     @Autowired
     FindKitchenService findKitchenService;
@@ -64,7 +66,7 @@ public class KitchenController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Kitchen> create(@RequestBody Kitchen kitchen) {
+    public ResponseEntity<Kitchen> create(@RequestBody @Valid Kitchen kitchen) {
         final var createdKitchen = createKitchenService.execute(kitchen);
 
         if (createdKitchen != null) {
@@ -86,11 +88,10 @@ public class KitchenController {
     }
 
     @DeleteMapping({"/{id}"})
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> remove(@PathVariable UUID id) {
         try {
             deleteKitchenService.execute(id);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok().build();
         } catch (EmptyResultDataAccessException e) {
             return ResponseEntity.notFound().build();
         }
