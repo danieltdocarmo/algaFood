@@ -1,14 +1,12 @@
 package com.algaworks.api.algafood.controllers;
 
 import com.algaworks.api.algafood.domain.dtos.DTORestaurant;
-import com.algaworks.api.algafood.domain.interfaces.Groups;
 import com.algaworks.api.algafood.domain.model.Restaurant;
 import com.algaworks.api.algafood.domain.service.restaurant.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -53,7 +51,7 @@ public class RestaurantController {
 
     @PostMapping
     public ResponseEntity<?> create(
-        @RequestBody @Validated(value = Groups.CreationRestaurant.class) Restaurant restaurant) {
+        @RequestBody @Valid Restaurant restaurant) {
         try {
             return ResponseEntity.ok(createRestaurantService.execute(restaurant));
         } catch (EmptyResultDataAccessException e) {

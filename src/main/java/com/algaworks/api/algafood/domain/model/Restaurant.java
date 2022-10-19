@@ -8,13 +8,15 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.groups.ConvertGroup;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.validation.annotation.Validated;
 
 import com.algaworks.api.algafood.domain.interfaces.Groups;
+import com.algaworks.api.algafood.domain.interfaces.IsMultiplyFor;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -25,6 +27,9 @@ import java.util.UUID;
 @Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@FreeTaxWithDescription(field = "deliveryTax", 
+fieldDescription = "name", 
+requestDescription = "Frete Grátis")
 public class Restaurant {
 
     @EqualsAndHashCode.Include
@@ -33,12 +38,13 @@ public class Restaurant {
     private UUID id;
 
     @Column
-    @NotNull(groups = Groups.CreationRestaurant.class)
-    @NotEmpty(groups = Groups.CreationRestaurant.class)
-    @NotBlank(groups = Groups.CreationRestaurant.class)
+    @NotNull
+    @NotEmpty
+    @NotBlank
     private String name;
 
     @Column(name = "delivery_tax")
+    @IsMultiplyFor(number = 1)
     private BigDecimal deliveryTax;
 
     @Embedded
@@ -46,8 +52,9 @@ public class Restaurant {
     private Address address;
     
     @Valid
-    @ManyToOne
-    @NotNull(groups = Groups.CreationRestaurant.class)
+    @ConvertGroup(from = Default.class, to = Groups.CreationRestaurant.class)
+    @ManyToOne 
+    @NotNull
     private Kitchen kitchen;
 
     @ManyToMany
@@ -63,6 +70,4 @@ public class Restaurant {
     @CreationTimestamp
     @Column(nullable = false, columnDefinition = "timestamp")
     private LocalDateTime created_at;
-
-    
 }
