@@ -15,6 +15,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.algaworks.api.algafood.domain.interfaces.Groups;
 import com.algaworks.api.algafood.domain.interfaces.IsMultiplyFor;
+import com.algaworks.api.algafood.domain.interfaces.FreeTaxWithDescription;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 

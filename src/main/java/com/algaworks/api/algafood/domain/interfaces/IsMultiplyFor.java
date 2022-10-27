@@ -11,7 +11,7 @@ import javax.validation.Payload;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = {IsMultiplyForValidator.class})
-public @interface IsMultiplyFor{
+public @interface IsMultiplyFor {
    String message() default "Mútiplo invalido";
 
    Class<?>[] groups() default { };

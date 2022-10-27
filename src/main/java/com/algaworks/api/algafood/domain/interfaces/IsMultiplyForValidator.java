@@ -1,7 +1,5 @@
 package com.algaworks.api.algafood.domain.interfaces;
 
-import java.math.BigDecimal;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 

@@ -20,6 +20,7 @@ public class DeleteKitchenService {
         if(kitchen.isEmpty()){
             throw new EmptyResultDataAccessException(1);
         }
+        
         kitchenRepository.delete(kitchen.get());
 
     }
