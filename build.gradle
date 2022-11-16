@@ -29,7 +29,8 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.rest-assured:rest-assured:3.0.7'
-	implementation 'io.rest-assured:rest-assured-all:3.3.0'
+	testImplementation 'io.rest-assured:rest-assured-all:3.3.0'
+	testImplementation 'com.h2database:h2:2.1.210'
 }
 
 tasks.named('test') {

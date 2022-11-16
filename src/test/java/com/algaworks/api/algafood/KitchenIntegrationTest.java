@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.TransactionSystemException;
 
 import com.algaworks.api.algafood.domain.model.Kitchen;
@@ -16,7 +17,8 @@ import com.algaworks.api.algafood.domain.service.kitchen.CreateKitchenService;
 import com.algaworks.api.algafood.domain.service.kitchen.DeleteKitchenService;
 
 @SpringBootTest
-class KitchenIntregrationTest {
+@TestPropertySource("/application-test.properties")
+class KitchenIntegrationTest {
 
     private static String KITCHEN_UUID = "6c1a5976-8e4e-4fb1-ad10-cb4384ae6c81";
     
@@ -63,7 +65,6 @@ class KitchenIntregrationTest {
             //act
             deleteKitchenService.execute(UUID.fromString(KITCHEN_UUID));
         });
-        
     }
 
 }
