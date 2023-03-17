@@ -13,7 +13,21 @@ services:
       - POSTGRES_BD=algafood
       - POSTGRES_DB=algafood
     volumes:
-      - pgdata:/data/postgres
+      - pgdata:/data/db_algafood
+
+  database_algafood_test:
+    image: postgres
+    container_name: database_algafood_test
+    restart: always
+    ports:
+      - "5436:5432"
+    environment:
+      - POSTGRES_USER=algafood_test
+      - POSTGRES_PASSWORD=algafood_test
+      - POSTGRES_BD=algafood_test
+      - POSTGRES_DB=algafood_test
+    volumes:
+      - pgdata:/data/db_algafood_test
 
 volumes:
   pgdata:
