@@ -1,7 +1,6 @@
 package com.algaworks.api.algafood.domain.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,7 +24,9 @@ import java.util.UUID;
 @Entity
 @Table
 @Data
+@Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@AllArgsConstructor
 public class Kitchen {
    
     @NotNull(groups = Groups.CreationRestaurant.class)

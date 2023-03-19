@@ -69,7 +69,7 @@ public class KitchenController {
         final var createdKitchen = createKitchenService.execute(kitchen);
 
         if (createdKitchen != null) {
-            return ResponseEntity.ok(createdKitchen);
+            return ResponseEntity.status(201).body(createdKitchen);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
