@@ -43,16 +43,22 @@ public class KitchenController {
 
     @GetMapping
     public List<Kitchen> listAll() {
+        System.out.println("here");
         return listKitchensService.execute();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Kitchen> findById(@PathVariable UUID id) {
-        var foundKitchen = findKitchenService.execute(id).orElseThrow(() -> {
-            throw new EntityNotFoundException(NOT_FOUND_MESSAGE);}
-        );
-
-        return ResponseEntity.ok(foundKitchen);
+       try {
+           var foundKitchen = findKitchenService.execute(id).orElseThrow(() -> {
+                       throw new EntityNotFoundException(NOT_FOUND_MESSAGE);
+                   }
+           );
+           System.out.println(foundKitchen);
+           return ResponseEntity.ok(foundKitchen);
+       } catch (EntityNotFoundException e) {
+           return ResponseEntity.notFound().build();
+       }
     }
 
     @GetMapping({"/by-name"})

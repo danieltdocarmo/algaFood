@@ -58,7 +58,14 @@ public class Kitchen {
         }
     }
 
+
+
+
     public Kitchen(String name){
+        if(this.id == null){
+            this.id = UUID.randomUUID();
+        }
         this.name = name;
     }
+
 }
