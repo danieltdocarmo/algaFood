@@ -1,5 +1,6 @@
 package com.algaworks.api.algafood.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -56,6 +57,7 @@ public class Restaurant {
     @ConvertGroup(from = Default.class, to = Groups.CreationRestaurant.class)
     @ManyToOne 
     @NotNull
+    @JsonIgnoreProperties(value = "name", allowGetters = true)
     private Kitchen kitchen;
 
     @ManyToMany

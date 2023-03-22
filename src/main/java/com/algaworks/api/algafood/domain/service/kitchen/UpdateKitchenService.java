@@ -8,6 +8,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 
+import javax.transaction.Transactional;
 import java.util.UUID;
 
 @Service
@@ -16,6 +17,7 @@ public class UpdateKitchenService {
     @Autowired
     KitchenRepository kitchenRepository;
 
+    @Transactional
     public Kitchen execute(UUID id, String name){
         final var foundKitchen = kitchenRepository.findById(id).orElseThrow(() -> {
             throw new EmptyResultDataAccessException(1);
